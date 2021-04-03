@@ -269,5 +269,20 @@ describe('rechoir', function () {
 
       done();
     });
+
+    it('should register a module loader for the specified extension with cwd', function(done) {
+      rechoir.prepare(
+        {
+          '.foo': ['nothere', '../require-stub'],
+        },
+        path.join('cwd', 'test.foo'),
+        path.join(__dirname, 'fixtures')
+      );
+      expect(function () {
+        require(testFilePath);
+      }).not.toThrow(Error);
+
+      done();
+    });
   });
 });
